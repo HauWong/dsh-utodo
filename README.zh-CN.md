@@ -8,6 +8,12 @@
 
 **English** → [README.md](README.md)
 
+## 截图
+
+![待办与三个视图](screenshots/todo.png)
+
+![带彩色标签的想法](screenshots/idea.png)
+
 ## 为什么做这个
 
 待办和灵感通常散落在另一个 App 里，于是离它所属的工作越来越远。`dsh-utodo` 在 DeepSeek Harness 侧栏放一块轻量、可全键盘操作的面板：不用切窗口就能记一条待办或一个念头，用日期或标签把它组织起来，需要时再翻出来。数据只存在本机浏览器存储里 —— 没有账号、没有服务端、没有埋点。

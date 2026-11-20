@@ -8,6 +8,12 @@
 
 **简体中文** → [README.zh-CN.md](README.zh-CN.md)
 
+## Screenshots
+
+![Todos with the three views](screenshots/todo.png)
+
+![Ideas with colour-coded tags](screenshots/idea.png)
+
 ## Why
 
 Notes and todos usually live in a separate app, so they drift away from the work they belong to. `dsh-utodo` puts a lightweight, keyboard-friendly panel in the DeepSeek Harness sidebar: capture a task or a thought without leaving the window, organise it with dates or tags, and get it back when you need it. Everything stays in your own browser storage — no account, no server, no telemetry.
