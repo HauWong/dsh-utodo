@@ -1,0 +1,169 @@
+{
+  "total_count": 1,
+  "jobs": [
+    {
+      "id": 136406626954,
+      "run_id": 44770518655,
+      "workflow_name": "PR check",
+      "head_branch": "add-dsh-utodo",
+      "run_url": "https://api.github.com/repos/awesome-dsh-plugin/awesome-dsh-plugin/actions/runs/44770518655",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOT3ajCc8AAAAfwnfyig",
+      "head_sha": "f10cd6178974aafa64b8ce12ff1d5f668155f5c1",
+      "url": "https://api.github.com/repos/awesome-dsh-plugin/awesome-dsh-plugin/actions/jobs/136406626954",
+      "html_url": "https://github.com/awesome-dsh-plugin/awesome-dsh-plugin/actions/runs/44770518655/job/136406626954",
+      "status": "in_progress",
+      "conclusion": null,
+      "created_at": "2026-11-20T16:09:36Z",
+      "started_at": "2026-11-20T16:09:38Z",
+      "completed_at": null,
+      "name": "check",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-20T16:09:39Z",
+          "completed_at": "2026-11-20T16:09:39Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-20T16:09:39Z",
+          "completed_at": "2026-11-20T16:10:36Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-20T16:10:36Z",
+          "completed_at": "2026-11-20T16:10:37Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-20T16:10:37Z",
+          "completed_at": "2026-11-20T16:10:39Z"
+        },
+        {
+          "name": "Stale-fork guard",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-20T16:10:39Z",
+          "completed_at": "2026-11-20T16:10:39Z"
+        },
+        {
+          "name": "Every entry file ends in .yml",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-11-20T16:10:39Z",
+          "completed_at": "2026-11-20T16:10:39Z"
+        },
+        {
+          "name": "Entry files live in data/plugins/",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-20T16:10:39Z",
+          "completed_at": "2026-11-20T16:10:39Z"
+        },
+        {
+          "name": "A generated README row that lists nothing is not a submission",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-11-20T16:10:39Z",
+          "completed_at": "2026-11-20T16:10:39Z"
+        },
+        {
+          "name": "READMEs match data/plugins",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-11-20T16:10:39Z",
+          "completed_at": "2026-11-20T16:10:40Z"
+        },
+        {
+          "name": "awesome-lint",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-11-20T16:10:40Z",
+          "completed_at": "2026-11-20T16:11:09Z"
+        },
+        {
+          "name": "Added-date regression tests",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-11-20T16:11:09Z",
+          "completed_at": "2026-11-20T16:11:09Z"
+        },
+        {
+          "name": "Capability-disclosure tests",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-11-20T16:11:09Z",
+          "completed_at": "2026-11-20T16:11:09Z"
+        },
+        {
+          "name": "Discussion-adoption tests",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-11-20T16:11:09Z",
+          "completed_at": "2026-11-20T16:11:10Z"
+        },
+        {
+          "name": "Entry-path tests",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-11-20T16:11:10Z",
+          "completed_at": "2026-11-20T16:11:10Z"
+        },
+        {
+          "name": "Build (locale parity, date derivation, templates)",
+          "status": "in_progress",
+          "conclusion": null,
+          "number": 15,
+          "started_at": "2026-11-20T16:11:10Z",
+          "completed_at": null
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "pending",
+          "conclusion": null,
+          "number": 29,
+          "started_at": null,
+          "completed_at": null
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "pending",
+          "conclusion": null,
+          "number": 30,
+          "started_at": null,
+          "completed_at": null
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/awesome-dsh-plugin/awesome-dsh-plugin/check-runs/136406626954",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000077171,
+      "runner_name": "GitHub Actions 1000077171",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}

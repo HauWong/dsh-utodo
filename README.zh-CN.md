@@ -5,6 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![DeepSeek Harness plugin](https://img.shields.io/badge/DeepSeek%20Harness-plugin-4f46e5.svg)](https://github.com/deepseek-ai/deepseek-harness)
 [![Node](https://img.shields.io/badge/node-%3E%3D20-informational.svg)](package.json)
+[![npm](https://img.shields.io/npm/v/dsh-utodo.svg)](https://www.npmjs.com/package/dsh-utodo)
 
 **English** → [README.md](README.md)
 
@@ -57,7 +58,13 @@
 
 ## 安装
 
-插件没有发布到 npm，直接从 GitHub 安装即可（包名由仓库里的 manifest 解析）：
+从 npm 安装（也可以直接从 GitHub 装，见下）：
+
+```bash
+dsh plugin --profile desktop add dsh-utodo
+```
+
+直接从 GitHub 安装（想跟着仓库走、不经过 npm 时用它）：
 
 ```bash
 dsh plugin --profile desktop add "github:HauWong/dsh-utodo"

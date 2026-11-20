@@ -5,6 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![DeepSeek Harness plugin](https://img.shields.io/badge/DeepSeek%20Harness-plugin-4f46e5.svg)](https://github.com/deepseek-ai/deepseek-harness)
 [![Node](https://img.shields.io/badge/node-%3E%3D20-informational.svg)](package.json)
+[![npm](https://img.shields.io/npm/v/dsh-utodo.svg)](https://www.npmjs.com/package/dsh-utodo)
 
 **简体中文** → [README.zh-CN.md](README.zh-CN.md)
 
@@ -57,7 +58,13 @@ Pairwise distance is at least ΔE ≈ 16 in CIELAB space, comfortably above the 
 
 ## Install
 
-The plugin is not published to npm — install it straight from GitHub (the name is resolved by the package manifest in the repository):
+Install it from npm (the package is also installable straight from GitHub — see below):
+
+```bash
+dsh plugin --profile desktop add dsh-utodo
+```
+
+From GitHub instead, when you want to track the repository without npm:
 
 ```bash
 dsh plugin --profile desktop add "github:HauWong/dsh-utodo"

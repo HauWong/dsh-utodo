@@ -1,0 +1,18 @@
+{
+  "name": "HauWong__dsh-utodo.yml",
+  "path": "data/plugins/HauWong__dsh-utodo.yml",
+  "sha": "53073006425bdf44625c4fe1f4ccb6a8e58cdc39",
+  "size": 468,
+  "url": "https://api.github.com/repos/HauWong/awesome-dsh-plugin/contents/data/plugins/HauWong__dsh-utodo.yml?ref=add-dsh-utodo",
+  "html_url": "https://github.com/HauWong/awesome-dsh-plugin/blob/add-dsh-utodo/data/plugins/HauWong__dsh-utodo.yml",
+  "git_url": "https://api.github.com/repos/HauWong/awesome-dsh-plugin/git/blobs/53073006425bdf44625c4fe1f4ccb6a8e58cdc39",
+  "download_url": "https://raw.githubusercontent.com/HauWong/awesome-dsh-plugin/add-dsh-utodo/data/plugins/HauWong__dsh-utodo.yml",
+  "type": "file",
+  "content": "dXJsOiBodHRwczovL2dpdGh1Yi5jb20vSGF1V29uZy9kc2gtdXRvZG8KbmFt\nZTogSGF1V29uZy9kc2gtdXRvZG8KY2F0ZWdvcnk6IHVpCmRlc2NyaXB0aW9u\nOgogIGVuOiAnU2lkZWJhciB0b2RvIGFuZCBpZGVhIHBhbmVsOiB0YXNrcyB3\naXRoIGEgc2luZ2xlIGRhdGUgb3IgYSBkYXRlIHJhbmdlLCBvdmVyZHVlLCBp\nbXBvcnRhbnQgYW5kIGR1ZS1zb29uIHZpZXdzLCBhbmQgbm90ZXMgd2l0aCBj\nb2xvdXItY29kZWQgdGFncy4nCiAgemg6ICfkvqfmoI/lvoXlip7kuI7mg7Pm\ns5XpnaLmnb/vvJrlvoXlip7mlK/mjIHljZXml6XmiJbml6XmnJ/ljLrpl7Tv\nvIzmj5DkvpvpgL7mnJ/jgIHph43opoHjgIHkuLTmnJ/op4blm77vvJvmg7Pm\ns5Xlj6/liqDlvanoibLmoIfnrb7jgIInCmljb246IGh0dHBzOi8vcmF3Lmdp\ndGh1YnVzZXJjb250ZW50LmNvbS9IYXVXb25nL2RzaC11dG9kby9tYWluL2Fz\nc2V0cy9pY29uLTE4MC5wbmcK\n",
+  "encoding": "base64",
+  "_links": {
+    "self": "https://api.github.com/repos/HauWong/awesome-dsh-plugin/contents/data/plugins/HauWong__dsh-utodo.yml?ref=add-dsh-utodo",
+    "git": "https://api.github.com/repos/HauWong/awesome-dsh-plugin/git/blobs/53073006425bdf44625c4fe1f4ccb6a8e58cdc39",
+    "html": "https://github.com/HauWong/awesome-dsh-plugin/blob/add-dsh-utodo/data/plugins/HauWong__dsh-utodo.yml"
+  }
+}

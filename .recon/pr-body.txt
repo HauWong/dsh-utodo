@@ -1,0 +1,11 @@
+- [x] I added **one file** at `data/plugins/HauWong__dsh-utodo.yml` — that single file is the whole submission.
+- [x] My repo's `package.json` declares **`dsh.bundle`** (`dsh.bundle.patch: ./cordis.patch.yml`, plus `dsh.client` for the browser half).
+- [ ] My repo is at least **1 day old** — created 2026-11-20T15:49:11Z, so this is the only failing gate; `regate.yml` re-runs it on a schedule.
+- [x] `category: ui` — it is a sidebar panel with its own todo and idea UI.
+- [x] Description states what the plugin does, no superlatives.
+- [x] My repo has the `dsh-plugin` topic.
+
+What it does: a sidebar panel (`sidebar.panellist` entry `utodo`, `main` page keyed to it) with two tabs. **待办** stores tasks that may have no date, a single date, or a date range, and shows them either all together (overdue / today / upcoming / no date / done) or in two derived views: 重要, every task marked important, and 临期, unfinished tasks due within a window the user sets (2, 7, 30 days or any 1–365). **想法** stores notes with any number of tags; tags are coloured from a fixed six-tone Morandi palette, assigned in order of first appearance so the first six tags are always distinct, and the tag row doubles as a filter with per-tag counts. Everything persists in `localStorage` under `dsh-utodo.v1`; the plugin makes no network requests. It is a single hand-written `window.__ModuleLoader__` bundle with no build step, MIT licensed.
+
+---TITLE---
+add dsh-utodo — sidebar todo & idea panel
