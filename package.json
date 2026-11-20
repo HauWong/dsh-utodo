@@ -2,6 +2,11 @@
   "name": "dsh-utodo",
   "version": "0.1.0",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HauWong/dsh-utodo.git"
+  },
+  "homepage": "https://github.com/HauWong/dsh-utodo#readme",
   "description": "待办与想法：DSH 左侧栏全局面板，待办支持单日 / 日期区间，想法支持标签",
   "type": "module",
   "main": "lib/index.js",
