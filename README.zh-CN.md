@@ -1,9 +1,9 @@
 # dsh-utodo
 
-> 常驻在 [DeepSeek Harness](https://github.com/deepseek-ai) 左侧栏的待办清单与想法速记本 —— 不离开当前窗口，随手记下，随时找回。
+> 常驻在 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 左侧栏的待办清单与想法速记本 —— 不离开当前窗口，随手记下，随时找回。
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![DeepSeek Harness plugin](https://img.shields.io/badge/DeepSeek%20Harness-plugin-4f46e5.svg)](https://github.com/deepseek-ai)
+[![DeepSeek Harness plugin](https://img.shields.io/badge/DeepSeek%20Harness-plugin-4f46e5.svg)](https://github.com/deepseek-ai/deepseek-harness)
 [![Node](https://img.shields.io/badge/node-%3E%3D20-informational.svg)](package.json)
 
 **English** → [README.md](README.md)

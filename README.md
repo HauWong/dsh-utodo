@@ -1,9 +1,9 @@
 # dsh-utodo
 
-> A todo list and idea notebook that lives in the [DeepSeek Harness](https://github.com/deepseek-ai) sidebar — one click away from every conversation.
+> A todo list and idea notebook that lives in the [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) sidebar — one click away from every conversation.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![DeepSeek Harness plugin](https://img.shields.io/badge/DeepSeek%20Harness-plugin-4f46e5.svg)](https://github.com/deepseek-ai)
+[![DeepSeek Harness plugin](https://img.shields.io/badge/DeepSeek%20Harness-plugin-4f46e5.svg)](https://github.com/deepseek-ai/deepseek-harness)
 [![Node](https://img.shields.io/badge/node-%3E%3D20-informational.svg)](package.json)
 
 **简体中文** → [README.zh-CN.md](README.zh-CN.md)
