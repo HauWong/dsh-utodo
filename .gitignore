@@ -4,3 +4,7 @@ node_modules/
 .recon/last.json
 *.log
 .DS_Store
+.recon/npm*/
+.recon/reg*.json
+.recon/reg-readme.md
+.recon/v0*.json
