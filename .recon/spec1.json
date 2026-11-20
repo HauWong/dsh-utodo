@@ -1,0 +1,14 @@
+[
+ {
+  "path": "/dsh/node_modules/@deepseek-ai/dsh-client-ui-plugin-manager/src/client/PluginsPanelIcon.tsx",
+  "out": "D:/DeepSeek Harness/plugins/utodo/.recon/dump/PluginsPanelIcon.tsx"
+ },
+ {
+  "path": "/dsh/node_modules/@deepseek-ai/dsh-client-ui-plugin-manager/lib/client.js",
+  "out": "D:/DeepSeek Harness/plugins/utodo/.recon/dump/sample-client-bundle.js"
+ },
+ {
+  "path": "/dsh/node_modules/@deepseek-ai/dsh-client-ui-plugin-manager/package.json",
+  "out": "D:/DeepSeek Harness/plugins/utodo/.recon/dump/pm-package.json"
+ }
+]

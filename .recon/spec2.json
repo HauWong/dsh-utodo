@@ -1,0 +1,10 @@
+[
+ {
+  "path": "/dsh/node_modules/@deepseek-ai/dsh-client-ui-sidebar/lib/client.js",
+  "out": "D:/DeepSeek Harness/plugins/utodo/.recon/dump/sidebar-client.js"
+ },
+ {
+  "path": "/dsh/node_modules/@deepseek-ai/dsh-client-ui-layout/lib/client.js",
+  "out": "D:/DeepSeek Harness/plugins/utodo/.recon/dump/layout-client.js"
+ }
+]

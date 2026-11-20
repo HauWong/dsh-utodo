@@ -1,0 +1,8 @@
+# dsh-utodo bundle patch
+#
+# One insert: the host half of this package. The host entry carries no behavior
+# of its own — it exists so the plugin is an enabled Loader row, which is what
+# makes dsh-client-modules serve ./client.js to the Web GUI.
+- insert:
+    - id: utodo
+      name: 'dsh-utodo'

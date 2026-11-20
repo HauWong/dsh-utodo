@@ -1,0 +1,14 @@
+[
+ {
+  "path": "/dsh/node_modules/@deepseek-ai/dsh-client-modules/src/index.ts",
+  "out": "D:/DeepSeek Harness/plugins/utodo/.recon/dump/cm-index.ts"
+ },
+ {
+  "path": "/dsh/node_modules/@deepseek-ai/dsh-client-modules/src/assets.ts",
+  "out": "D:/DeepSeek Harness/plugins/utodo/.recon/dump/cm-assets.ts"
+ },
+ {
+  "path": "/dsh/node_modules/@deepseek-ai/dsh-client-modules/README.md",
+  "out": "D:/DeepSeek Harness/plugins/utodo/.recon/dump/cm-readme2.md"
+ }
+]
