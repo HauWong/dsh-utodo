@@ -161,7 +161,7 @@ Both scripts print a `failures` / `problems` list; empty means the assertions pa
 
 ## Limitations
 
-- Not on npm; install from GitHub or a local link.
+- npm carries stable releases only, so the repository's `main` may be one version ahead; link a checkout to track the latest code.
 - Local storage only — no sync, no export/import, no multiple devices.
 - Requires an application restart after install or update, because the client graph is composed at boot.
 - Built against DSH `0.2.2-rc.3` slot names; a future host renderer change may require updates.
