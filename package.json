@@ -1,6 +1,6 @@
 {
   "name": "dsh-utodo",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "private": false,
   "license": "MIT",
   "author": "HauWong",
@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/HauWong/dsh-utodo/issues"
   },
-  "description": "待办与想法：DSH 左侧栏全局面板，待办支持单日 / 日期区间，想法支持标签",
+  "description": "待办与想法：DSH 左侧栏全局面板，待办支持单日 / 日期区间与到点微信提醒，想法支持标签，选中内容可一键导入当前会话",
   "type": "module",
   "main": "lib/index.js",
   "exports": {
@@ -43,7 +43,8 @@
       "platform": "web",
       "inject": [
         "@deepseek-ai/dsh-client-ui-layout",
-        "@deepseek-ai/dsh-client-ui-sidebar"
+        "@deepseek-ai/dsh-client-ui-sidebar",
+        "@deepseek-ai/dsh-client-ui-conversation"
       ]
     }
   },

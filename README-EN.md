@@ -36,6 +36,19 @@ Notes and todos usually live in a separate app, so they drift away from the work
 - A tag bar filters the list and shows per-tag counts.
 - Tags are added with `Enter` or `,`, removed with click or `Backspace`.
 
+### Import into the conversation
+
+- **导入会话** in the panel header turns on multi-select; tick any todos and ideas.
+- **导入到当前会话** appends the selection to the current conversation's composer draft as Markdown, keeping whatever you had already typed, switches back to the conversation and puts the caret in the composer.
+- When no conversation is available, the same text goes to the clipboard so the selection is never lost.
+
+### Reminder push
+
+- A single-day todo can carry a wall-clock time (`HH:mm`); when it comes due the plugin pushes to WeChat.
+- Pick the channel in **提醒推送设置** at the bottom of the panel: a WeCom group-bot webhook, a Server酱 SendKey, a PushPlus token, or any custom webhook that accepts `{title, content}`.
+- Hit **发送测试推送** first to confirm the configuration; system notifications can be enabled alongside.
+- Delivery only happens while the page is open. A reminder that came due while the app was closed is sent once on the next open if it is under six hours old; anything older is retired silently.
+
 ### Tag colours
 
 Six low-saturation Morandi tones, assigned by first appearance so the first six tags are always visually distinct:
@@ -103,16 +116,22 @@ Open **待办与想法** in the left sidebar.
 | Add an idea | Type, add tags, then `Ctrl/Cmd + Enter` |
 | Filter by tag | Click a tag in the bar above the list |
 | Edit an idea | Double-click its text |
+| Import into the conversation | 导入会话 in the header, tick items, then 导入到当前会话 |
+| Set up reminder push | 提醒推送设置 at the bottom: channel, secret, then a test push |
 
 ## Data & privacy
 
-All state lives in the WebView's `localStorage` under the key `dsh-utodo.v1`. Nothing is sent anywhere: no network requests, no analytics, no account.
+All state lives in the WebView's `localStorage` under the key `dsh-utodo.v1`. No analytics, no account, and no third-party server: the only outbound request is a reminder push, and it goes solely to the webhook or token address you entered yourself.
 
 ```jsonc
 {
-  "todos": [{ "id": "…", "title": "…", "start": "2026-11-20", "end": "2026-11-24", "done": false, "important": true, "createdAt": 0 }],
+  "todos": [{ "id": "…", "title": "…", "start": "2026-11-20", "end": null, "remind": "09:30", "remindSent": null, "done": false, "important": true, "createdAt": 0 }],
   "ideas": [{ "id": "…", "text": "…", "tags": ["dsh"], "createdAt": 0 }],
-  "settings": { "soonDays": 2, "tagTones": { "dsh": 0 } }
+  "settings": {
+    "soonDays": 2,
+    "tagTones": { "dsh": 0 },
+    "push": { "enabled": false, "channel": "wecom", "target": "", "desktop": false }
+  }
 }
 ```
 
@@ -131,7 +150,7 @@ A DSH plugin ships two halves: a host entry (Cordis plugin) and, optionally, a c
 | `lib/index.js` | Host half — intentionally empty (`inject = []`, no-op `apply`), it exists so the entry is enabled and the client bundle can be served |
 | `lib/client.js` | The whole UI: sidebar icon + panel, written by hand in the `window.__ModuleLoader__` bundle format |
 
-The client half registers two slots:
+The client half registers three slots:
 
 ```js
 ctx.slots.inject('sidebar.panellist', () => ctx.slots.register(
@@ -145,7 +164,7 @@ ctx.slots.inject('main', () => ctx.slots.register(
 ))
 ```
 
-`sidebar.panellist` contributes the sidebar row and receives the icon through the `sidebar.panel.icon` factory; `main` is matched by the layout through `key` when that row is selected. Styles are injected as a single `<style>` element from inside the bundle and use semi-transparent neutral colours plus one accent (`#e0a15b`), so the panel reads correctly in both light and dark themes. There is no bundler: the file is plain ESM wrapped in a loader call, which keeps review and hot fixes trivial.
+`sidebar.panellist` contributes the sidebar row and receives the icon through the `sidebar.panel.icon` factory; `main` is matched by the layout through `key` when that row is selected. The third registration is a render-nothing probe on `conversation.session.header.utilities`: the main panel is root-scoped, so the platform never tells it which conversation is current, and the probe records the id from the session header for the import button to resolve `conversation.input`. If the probe cannot register, the panel still works and import falls back to the clipboard. Styles are injected as a single `<style>` element from inside the bundle and use semi-transparent neutral colours plus one accent (`#e0a15b`), so the panel reads correctly in both light and dark themes. There is no bundler: the file is plain ESM wrapped in a loader call, which keeps review and hot fixes trivial.
 
 ## Development
 
@@ -165,6 +184,8 @@ Both scripts print a `failures` / `problems` list; empty means the assertions pa
 - Local storage only — no sync, no export/import, no multiple devices.
 - Requires an application restart after install or update, because the client graph is composed at boot.
 - Built against DSH `0.2.2-rc.3` slot names; a future host renderer change may require updates.
+- Reminders depend on the local clock and a running page: nothing fires while the app is closed, and only reminders under six hours old are sent on the next open.
+- Push goes through third-party channels only (WeCom bot, Server酱, PushPlus, custom webhook); personal WeChat is not wired directly.
 
 ## Contributing
 

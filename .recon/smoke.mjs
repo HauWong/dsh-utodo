@@ -229,8 +229,40 @@ const expect = [
 ]
 const failures = expect.filter(([, needle]) => !(pageText + '|' + ideaText).includes(needle))
 
+/* reminders: one firing per date+time, single-day only */
+const remindFailures = []
+const rem = internals.normalizeData({
+  todos: [
+    { id: 'r1', title: '单日提醒', start: shift(0), end: null, remind: '09:30' },
+    { id: 'r2', title: '区间不给时间', start: shift(-1), end: shift(1), remind: '09:30' },
+    { id: 'r3', title: '非法时间', start: shift(0), remind: '25:00' },
+  ],
+})
+const [r1, r2, r3] = rem.todos
+if (internals.remindKey(r1) !== shift(0) + 'T09:30') remindFailures.push('remindKey r1 => ' + internals.remindKey(r1))
+if (internals.remindKey(r2) !== null) remindFailures.push('a date range must not fire')
+if (r2.remind !== null) remindFailures.push('a date range must drop its time')
+if (r3.remind !== null) remindFailures.push('an invalid time must be dropped')
+if (internals.isTime('09:30') !== true || internals.isTime('9:30') !== false) remindFailures.push('isTime is not strict')
+
+/* the import block carries exactly what was ticked */
+if (internals.buildImportText(rem, {}) !== '') remindFailures.push('an empty selection must produce no block')
+const importText = internals.buildImportText(rem, { 'todo:r1': true })
+for (const needle of ['以下内容来自', '**待办**', '- [ ] 单日提醒', '提醒 09:30']) {
+  if (!importText.includes(needle)) remindFailures.push('import text :: missing ' + needle)
+}
+if (importText.includes('区间不给时间')) remindFailures.push('import text leaked an unselected todo')
+
+/* one request shape per channel */
+const wecom = internals.pushRequest({ channel: 'wecom', target: 'https://qyapi.weixin.qq.com/x' }, { title: 'T', content: 'C' })
+if (!wecom || wecom.method !== 'POST' || !wecom.body || wecom.body.msgtype !== 'text') remindFailures.push('wecom payload is wrong')
+const serverchan = internals.pushRequest({ channel: 'serverchan', target: 'SCT123' }, { title: 'T', content: 'C' })
+if (!serverchan || serverchan.method !== 'GET' || serverchan.url.indexOf('https://sctapi.ftqq.com/SCT123.send') !== 0) remindFailures.push('serverchan url is wrong')
+if (internals.pushRequest({ channel: 'wecom', target: '' }, { title: 'T', content: 'C' }) !== null) remindFailures.push('an empty target must not build a request')
+
 console.log(JSON.stringify({
   pageLength: pageText.length,
+  remindFailures,
   groups: Object.fromEntries(Object.entries(groups).map(([k, v]) => [k, v.map(t => t.title)])),
   scheduleOfRange: schedule,
   failures: failures.map(([label, needle]) => label + ' :: missing ' + needle),

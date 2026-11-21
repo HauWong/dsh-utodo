@@ -36,6 +36,19 @@
 - 顶部标签栏按标签筛选，并显示每个标签的条数。
 - 回车或逗号添加标签，点 × 或退格删除。
 
+### 导入到会话
+
+- 面板右上角点 **导入会话** 进入多选，勾选任意待办和想法。
+- 点 **导入到当前会话**：选中的内容会以 Markdown 追加到当前对话的输入草稿（保留你已经输入的文字），界面切回会话并把光标放进输入框。
+- 没有可用会话时，同样的文本会复制到剪贴板，选中结果不会丢。
+
+### 提醒推送
+
+- 单日待办可以额外设一个具体时间（`HH:mm`），到点后推送到微信。
+- 渠道在面板底部 **提醒推送设置** 里填：企业微信群机器人 Webhook、Server酱 SendKey、PushPlus token，或任意接收 `{title, content}` 的自定义 Webhook。
+- 先点 **发送测试推送** 确认配置；也可以同时打开系统通知。
+- 只在页面打开时投递。页面关着时到点的提醒，会在下次打开后的 6 小时内补发一次，更早的只做静默标记。
+
 ### 标签配色
 
 只用六种低饱和莫兰迪色，按首次出现顺序分配，所以前六个标签一定彼此可辨：
@@ -103,16 +116,22 @@ dsh plugin --profile desktop remove dsh-utodo
 | 记录想法 | 输入内容、加标签，`Ctrl/Cmd + Enter` 保存 |
 | 按标签筛选 | 点列表上方的标签条 |
 | 修改想法 | 双击正文 |
+| 导入到会话 | 点右上角「导入会话」勾选条目，再点「导入到当前会话」 |
+| 设置提醒推送 | 底部「提醒推送设置」，填渠道与密钥后发一条测试推送 |
 
 ## 数据与隐私
 
-全部状态存放在 WebView 的 `localStorage` 中，键名为 `dsh-utodo.v1`。没有任何网络请求、统计或账号体系，数据不会离开本机。
+全部状态存放在 WebView 的 `localStorage` 中，键名为 `dsh-utodo.v1`。没有统计、没有账号体系，数据不会发往任何第三方服务器：唯一的外发请求是提醒推送，且只会发到你亲自填写的那个 Webhook 或 token 对应地址。
 
 ```jsonc
 {
-  "todos": [{ "id": "…", "title": "…", "start": "2026-11-20", "end": "2026-11-24", "done": false, "important": true, "createdAt": 0 }],
+  "todos": [{ "id": "…", "title": "…", "start": "2026-11-20", "end": null, "remind": "09:30", "remindSent": null, "done": false, "important": true, "createdAt": 0 }],
   "ideas": [{ "id": "…", "text": "…", "tags": ["dsh"], "createdAt": 0 }],
-  "settings": { "soonDays": 2, "tagTones": { "dsh": 0 } }
+  "settings": {
+    "soonDays": 2,
+    "tagTones": { "dsh": 0 },
+    "push": { "enabled": false, "channel": "wecom", "target": "", "desktop": false }
+  }
 }
 ```
 
@@ -131,7 +150,7 @@ dsh plugin --profile desktop remove dsh-utodo
 | `lib/index.js` | 宿主端 —— 有意留空（`inject = []`，空 `apply`），作用只是让条目处于启用状态、并让客户端 bundle 能被提供 |
 | `lib/client.js` | 全部界面：侧栏图标与主面板，手写的 `window.__ModuleLoader__` bundle |
 
-客户端注册两个插槽：
+客户端注册三个插槽：
 
 ```js
 ctx.slots.inject('sidebar.panellist', () => ctx.slots.register(
@@ -145,7 +164,7 @@ ctx.slots.inject('main', () => ctx.slots.register(
 ))
 ```
 
-`sidebar.panellist` 提供侧栏那一行，图标通过 `sidebar.panel.icon` 工厂渲染；`main` 由布局层在选中该行时按 `key` 匹配。样式是 bundle 内注入的单个 `<style>` 元素，使用半透明中性色加一个强调色（`#e0a15b`），深浅主题下都可读。项目没有打包器：这个文件就是被 loader 包了一层的普通 ESM，方便审阅和快速修补。
+`sidebar.panellist` 提供侧栏那一行，图标通过 `sidebar.panel.icon` 工厂渲染；`main` 由布局层在选中该行时按 `key` 匹配。第三个注册是 `conversation.session.header.utilities` 上的空渲染探针 —— 主面板是 root 作用域，平台不会告诉它「当前会话」是哪个，探针从会话头拿到 id 并记下来，导入按钮再用它取 `conversation.input`。探针注册失败也不影响面板，导入会退回剪贴板。样式是 bundle 内注入的单个 `<style>` 元素，使用半透明中性色加一个强调色（`#e0a15b`），深浅主题下都可读。项目没有打包器：这个文件就是被 loader 包了一层的普通 ESM，方便审阅和快速修补。
 
 ## 开发
 
@@ -165,6 +184,8 @@ node .recon/smoke-register.mjs      # 用假 ctx.slots 跑 apply()，校验注�
 - 仅本地存储 —— 不支持同步、导入导出和多设备。
 - 安装或更新后需要重启应用，因为客户端模块图在启动时组装。
 - 针对 DSH `0.2.2-rc.3` 的插槽命名开发，宿主未来若调整渲染机制可能需要跟进。
+- 提醒依赖本机时钟与页面进程：应用没开着就不会准点推送，只会在下次打开时补发 6 小时内的提醒。
+- 推送只支持第三方通道（企业微信机器人 / Server酱 / PushPlus / 自定义 Webhook），不直接接入个人微信。
 
 ## 参与贡献
 

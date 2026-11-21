@@ -5,6 +5,7 @@ node_modules/
 *.log
 .DS_Store
 .recon/npm*/
+.recon/pkgs/
 .recon/reg*.json
 .recon/reg-readme.md
 .recon/v0*.json
