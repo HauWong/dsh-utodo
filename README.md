@@ -170,13 +170,24 @@ ctx.slots.inject('main', () => ctx.slots.register(
 
 ```bash
 node --check lib/client.js          # 仅语法检查
-node .recon/smoke.mjs               # 用假 React 渲染面板，校验分组、区间、视图、标签配色
+node .recon/smoke.mjs               # 用假 React 渲染面板：分组、区间、视图、标签配色、提醒与导入文本
 node .recon/smoke-register.mjs      # 用假 ctx.slots 跑 apply()，校验注册的插槽
+node .recon/ui-audit.mjs            # 设计系统审计：token 覆盖、类名对齐、按钮类型
+node .recon/preview.mjs             # 用当前样式生成 .recon/preview-{light,dark}.html
 ```
 
-两个脚本都会打印 `failures` / `problems` 列表，为空即通过。`smoke.mjs` 会报一条已知误报，原因是占位符是元素属性而非文本。
+前三个脚本打印 `failures` / `problems` 列表，为空即通过；`ui-audit` 不合规时以非零码退出。`smoke.mjs` 会报一条已知误报，原因是占位符是元素属性而非文本。
 
-`.recon/` 还包含研究宿主时用的工具：asar 索引 / 读取 / 搜索脚本。它们是开发脚手架，删除不影响插件本身。
+`.recon/` 还包含研究宿主时用的工具（asar 索引 / 读取 / 搜索）和静态预览、截图脚手架：`preview.mjs` 生成整页预览，`shots.mjs` 生成 README 里的两张界面图（都直接套用线上样式表，改完样式重跑即可更新）。这些是开发脚手架，删除不影响插件本身。
+
+## 设计约定
+
+界面的全部样式集中在 `lib/client.js` 顶部的 `CSS` 字符串里：颜色、字号、圆角、间距都取自 `.utodo-root` 上的 `--ut-*` token，没有第二份样式表，也没有构建步骤。
+
+- [`UI-GUIDELINES.md`](UI-GUIDELINES.md)：设计意图、token 表、组件配方、状态约定与 do/don't —— 改界面之前先读它。
+- [`AGENTS.md`](AGENTS.md)：给代码代理（和新同事）的入口，含命令、工程约束与发布流程。
+
+`node .recon/ui-audit.mjs` 机械地检查这些约定：颜色字面量只允许出现在 token 行、字号只能用 `--ut-fs-*`、圆角只能用 `--ut-r-*`、间距必须落在 4pt 标尺、JSX 类名与 CSS 规则双向对齐、每个 `<button>` 必须显式写 `type`。改完再用 `preview.mjs` 在亮/暗两种底色下看一眼。
 
 ## 已知限制
 

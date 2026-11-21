@@ -164,19 +164,30 @@ ctx.slots.inject('main', () => ctx.slots.register(
 ))
 ```
 
-`sidebar.panellist` contributes the sidebar row and receives the icon through the `sidebar.panel.icon` factory; `main` is matched by the layout through `key` when that row is selected. The third registration is a render-nothing probe on `conversation.session.header.utilities`: the main panel is root-scoped, so the platform never tells it which conversation is current, and the probe records the id from the session header for the import button to resolve `conversation.input`. If the probe cannot register, the panel still works and import falls back to the clipboard. Styles are injected as a single `<style>` element from inside the bundle and use semi-transparent neutral colours plus one accent (`#e0a15b`), so the panel reads correctly in both light and dark themes. There is no bundler: the file is plain ESM wrapped in a loader call, which keeps review and hot fixes trivial.
+`sidebar.panellist` contributes the sidebar row and receives the icon through the `sidebar.panel.icon` factory; `main` is matched by the layout through `key` when that row is selected. The third registration is a render-nothing probe on `conversation.session.header.utilities`: the main panel is root-scoped, so the platform never tells it which conversation is current, and the probe records the id from the session header for the import button to resolve `conversation.input`. If the probe cannot register, the panel still works and import falls back to the clipboard. Styles are injected as a single `<style>` element from inside the bundle and use semi-transparent neutral colours plus one accent (`#e0a15b`), so the panel reads correctly in both light and dark themes; every colour, type size, radius and spacing value comes from an `--ut-*` token (see `UI-GUIDELINES.md`). There is no bundler: the file is plain ESM wrapped in a loader call, which keeps review and hot fixes trivial.
 
 ## Development
 
 ```bash
 node --check lib/client.js          # syntax only
-node .recon/smoke.mjs               # renders the panel with a fake React, checks grouping, ranges, views, tag colours
+node .recon/smoke.mjs               # fake-React render: grouping, ranges, views, tag colours, reminders, import text
 node .recon/smoke-register.mjs      # calls apply() with a fake ctx.slots, checks the registered slots
+node .recon/ui-audit.mjs            # design-system audit: tokens, class/CSS alignment, button types
+node .recon/preview.mjs             # renders .recon/preview-{light,dark}.html from the live stylesheet
 ```
 
-Both scripts print a `failures` / `problems` list; empty means the assertions passed. `smoke.mjs` reports one known false positive about a placeholder, because placeholders are element attributes rather than text.
+The first three print a `failures` / `problems` list where empty means the assertions passed; `ui-audit` exits non-zero when the design system is violated. `smoke.mjs` reports one known false positive about a placeholder, because placeholders are element attributes rather than text.
 
-`.recon/` also holds the tooling used to study the host: an asar indexer/reader and an asar grep helper. It is development scaffolding and can be deleted without affecting the plugin.
+`.recon/` also holds the tooling used to study the host (an asar indexer/reader and grep helper) plus the static preview and screenshot scaffolding. It is development scaffolding and can be deleted without affecting the plugin.
+
+## Design rules
+
+Every style lives in the `CSS` string at the top of `lib/client.js`. Colours, type sizes, radii and spacing all come from `--ut-*` tokens declared on `.utodo-root`; there is no second stylesheet and no build step.
+
+- [`UI-GUIDELINES.md`](UI-GUIDELINES.md): intent, token table, component recipes, states, do/don't — read it before changing the interface.
+- [`AGENTS.md`](AGENTS.md): the entry point for coding agents (and new contributors): commands, engineering constraints, release flow.
+
+`node .recon/ui-audit.mjs` enforces the rules mechanically: colour literals only on token lines, `font-size` only through `--ut-fs-*`, `border-radius` only through `--ut-r-*`, spacing on the 4pt scale, two-way alignment between JSX class names and CSS rules, and an explicit `type` on every `<button>`. Finish with `preview.mjs` and look at both themes.
 
 ## Limitations
 

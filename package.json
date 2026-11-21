@@ -1,6 +1,6 @@
 {
   "name": "dsh-utodo",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": false,
   "license": "MIT",
   "author": "HauWong",
@@ -53,6 +53,8 @@
     "cordis.patch.yml",
     "README.md",
     "README-EN.md",
+    "UI-GUIDELINES.md",
+    "AGENTS.md",
     "LICENSE"
   ]
 }

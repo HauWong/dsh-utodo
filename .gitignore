@@ -9,3 +9,7 @@ node_modules/
 .recon/reg*.json
 .recon/reg-readme.md
 .recon/v0*.json
+.recon/preview-*.html
+.recon/shot-*.html
+.recon/shot-*.png
+.recon/smoke.json
