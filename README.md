@@ -44,8 +44,10 @@
 
 ### 提醒推送
 
-- 单日待办可以额外设一个具体时间（`HH:mm`），到点后推送到微信。
-- 渠道在面板底部 **提醒推送设置** 里填：企业微信群机器人 Webhook、Server酱 SendKey、PushPlus token，或任意接收 `{title, content}` 的自定义 Webhook。
+- 任何待办都能设提醒：点输入框旁的 **提醒** 开一个日期（`YYYY-MM-DD`）加一个时间（`HH:mm`），到点后推送到微信。
+- 提醒日可以提前到待办开始之前，但不能晚于待办的最后一天——区间待办用结束日当上限，输入框会自动夹住。
+- 已完成的待办和已删除的待办都不会推送。
+- 渠道在待办页底部的 **提醒推送设置** 里填（想法页不显示这张卡）：企业微信群机器人 Webhook、Server酱 SendKey、PushPlus token，或任意接收 `{title, content}` 的自定义 Webhook。
 - 先点 **发送测试推送** 确认配置；也可以同时打开系统通知。
 - 只在页面打开时投递。页面关着时到点的提醒，会在下次打开后的 6 小时内补发一次，更早的只做静默标记。
 
@@ -108,6 +110,7 @@ dsh plugin --profile desktop remove dsh-utodo
 | --- | --- |
 | 新建待办 | 在输入框输入标题，回车 |
 | 设置日期 | `单日` 选一天，`区间` 选一段，或用快捷项（今天 / 明天 / 下周一） |
+| 设置提醒 | 点「提醒」开一个日期加时间；日期不能晚于待办最后一天 |
 | 标记重要 | 点行右侧的 ☆（新建时也可在输入框旁切换） |
 | 修改待办 | 双击标题，标题与日期都能就地编辑 |
 | 删除 | 点删除键，需要再点一次确认 |
@@ -117,7 +120,7 @@ dsh plugin --profile desktop remove dsh-utodo
 | 按标签筛选 | 点列表上方的标签条 |
 | 修改想法 | 双击正文 |
 | 导入到会话 | 点右上角「导入会话」勾选条目，再点「导入到当前会话」 |
-| 设置提醒推送 | 底部「提醒推送设置」，填渠道与密钥后发一条测试推送 |
+| 设置提醒推送 | 待办页底部「提醒推送设置」，填渠道与密钥后发一条测试推送（想法页不显示） |
 
 ## 数据与隐私
 
@@ -125,7 +128,7 @@ dsh plugin --profile desktop remove dsh-utodo
 
 ```jsonc
 {
-  "todos": [{ "id": "…", "title": "…", "start": "2026-11-20", "end": null, "remind": "09:30", "remindSent": null, "done": false, "important": true, "createdAt": 0 }],
+  "todos": [{ "id": "…", "title": "…", "start": "2026-11-20", "end": null, "remind": "09:30", "remindDay": "2026-11-20", "remindSent": null, "done": false, "important": true, "createdAt": 0 }],
   "ideas": [{ "id": "…", "text": "…", "tags": ["dsh"], "createdAt": 0 }],
   "settings": {
     "soonDays": 2,

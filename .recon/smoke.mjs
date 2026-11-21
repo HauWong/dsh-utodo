@@ -229,26 +229,35 @@ const expect = [
 ]
 const failures = expect.filter(([, needle]) => !(pageText + '|' + ideaText).includes(needle))
 
-/* reminders: one firing per date+time, single-day only */
+/* reminders: one firing per day+time; any todo may remind, never past its last day */
 const remindFailures = []
 const rem = internals.normalizeData({
   todos: [
     { id: 'r1', title: '单日提醒', start: shift(0), end: null, remind: '09:30' },
-    { id: 'r2', title: '区间不给时间', start: shift(-1), end: shift(1), remind: '09:30' },
+    { id: 'r2', title: '区间也给时间', start: shift(-1), end: shift(1), remind: '09:30' },
     { id: 'r3', title: '非法时间', start: shift(0), remind: '25:00' },
+    { id: 'r4', title: '触发日越界', start: shift(0), remind: '08:00', remindDay: shift(30) },
+    { id: 'r5', title: '提前提醒', start: shift(2), remind: '07:15', remindDay: shift(-3) },
+    { id: 'r6', title: '无日期', remind: '06:00' },
   ],
 })
-const [r1, r2, r3] = rem.todos
+const [r1, r2, r3, r4, r5, r6] = rem.todos
 if (internals.remindKey(r1) !== shift(0) + 'T09:30') remindFailures.push('remindKey r1 => ' + internals.remindKey(r1))
-if (internals.remindKey(r2) !== null) remindFailures.push('a date range must not fire')
-if (r2.remind !== null) remindFailures.push('a date range must drop its time')
+if (r2.remind !== '09:30') remindFailures.push('a date range keeps its time')
+if (internals.remindKey(r2) !== shift(1) + 'T09:30') remindFailures.push('a range must fire on its last day => ' + internals.remindKey(r2))
 if (r3.remind !== null) remindFailures.push('an invalid time must be dropped')
+if (internals.remindDay(r4) !== shift(0)) remindFailures.push('a reminder day past the last day must clamp => ' + internals.remindDay(r4))
+if (internals.remindDay(r5) !== shift(-3)) remindFailures.push('an earlier reminder day must survive => ' + internals.remindDay(r5))
+if (internals.remindDay(r5) !== r5.remindDay) remindFailures.push('the clamped day must be stored')
+if (internals.remindDay(r6) !== shift(0)) remindFailures.push('a todo with no dates reminds today => ' + internals.remindDay(r6))
+if (internals.clampRemindDay(shift(9), shift(0), shift(4)) !== shift(4)) remindFailures.push('clampRemindDay cap is wrong')
+if (internals.lastDayOf(null, null) !== null || internals.lastDayOf(shift(0), shift(2)) !== shift(2)) remindFailures.push('lastDayOf is wrong')
 if (internals.isTime('09:30') !== true || internals.isTime('9:30') !== false) remindFailures.push('isTime is not strict')
 
 /* the import block carries exactly what was ticked */
 if (internals.buildImportText(rem, {}) !== '') remindFailures.push('an empty selection must produce no block')
 const importText = internals.buildImportText(rem, { 'todo:r1': true })
-for (const needle of ['以下内容来自', '**待办**', '- [ ] 单日提醒', '提醒 09:30']) {
+for (const needle of ['以下内容来自', '**待办**', '- [ ] 单日提醒', '提醒 ' + shift(0) + ' 09:30']) {
   if (!importText.includes(needle)) remindFailures.push('import text :: missing ' + needle)
 }
 if (importText.includes('区间不给时间')) remindFailures.push('import text leaked an unselected todo')

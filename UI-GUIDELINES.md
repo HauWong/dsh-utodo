@@ -139,9 +139,13 @@
 ### 4.4 输入
 
 `.utodo-input`（无边框的大输入，占满宽，`--ut-fs-base`）、`.utodo-textarea`（想法输入，最小 60px）、
-`.utodo-date` / `.utodo-time` / `.utodo-days` / `.utodo-select` / `.utodo-field-input` / `.utodo-inline-input`
+`.utodo-date` / `.utodo-days` / `.utodo-select` / `.utodo-field-input` / `.utodo-inline-input`
 共用配方：高 32、`--ut-r-sm`、1px `--ut-line`、底 `--ut-tint`（或无底）、focus 时边线转 `--ut-line-strong`。
-时间框宽 104px；天数框宽 48px。
+天数框宽 48px。
+
+`.utodo-remind`（提醒簇）：`inline-flex` + `gap s1`，里面只放提醒日（`.utodo-remind-date`，124px）和提醒时间（`.utodo-remind-time`，88px）两个输入。
+每个输入自己带边框，绝不再给外层套一个共享输入框（旧版就是这么错位的）；簇本身同高 32。
+提醒开关是 `.utodo-quick-btn.is-remind`，和 `.is-star` 用同一套强调色。
 
 ### 4.5 列表行
 

@@ -44,8 +44,10 @@ Notes and todos usually live in a separate app, so they drift away from the work
 
 ### Reminder push
 
-- A single-day todo can carry a wall-clock time (`HH:mm`); when it comes due the plugin pushes to WeChat.
-- Pick the channel in **提醒推送设置** at the bottom of the panel: a WeCom group-bot webhook, a Server酱 SendKey, a PushPlus token, or any custom webhook that accepts `{title, content}`.
+- Any todo can remind: hit **提醒** next to the composer to pick a day (`YYYY-MM-DD`) and a time (`HH:mm`); when it comes due the plugin pushes to WeChat.
+- The reminder day may be earlier than the todo starts, never later than its last day — a range caps it at the end date, and the input clamps to that.
+- Done and deleted todos never push.
+- Pick the channel in **提醒推送设置** at the bottom of the todo tab (the ideas tab hides that card): a WeCom group-bot webhook, a Server酱 SendKey, a PushPlus token, or any custom webhook that accepts `{title, content}`.
 - Hit **发送测试推送** first to confirm the configuration; system notifications can be enabled alongside.
 - Delivery only happens while the page is open. A reminder that came due while the app was closed is sent once on the next open if it is under six hours old; anything older is retired silently.
 
@@ -117,7 +119,7 @@ Open **待办与想法** in the left sidebar.
 | Filter by tag | Click a tag in the bar above the list |
 | Edit an idea | Double-click its text |
 | Import into the conversation | 导入会话 in the header, tick items, then 导入到当前会话 |
-| Set up reminder push | 提醒推送设置 at the bottom: channel, secret, then a test push |
+| Set up reminder push | 提醒推送设置 at the bottom of the todo tab: channel, secret, then a test push |
 
 ## Data & privacy
 
@@ -125,7 +127,7 @@ All state lives in the WebView's `localStorage` under the key `dsh-utodo.v1`. No
 
 ```jsonc
 {
-  "todos": [{ "id": "…", "title": "…", "start": "2026-11-20", "end": null, "remind": "09:30", "remindSent": null, "done": false, "important": true, "createdAt": 0 }],
+  "todos": [{ "id": "…", "title": "…", "start": "2026-11-20", "end": null, "remind": "09:30", "remindDay": "2026-11-20", "remindSent": null, "done": false, "important": true, "createdAt": 0 }],
   "ideas": [{ "id": "…", "text": "…", "tags": ["dsh"], "createdAt": 0 }],
   "settings": {
     "soonDays": 2,
