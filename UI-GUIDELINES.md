@@ -115,12 +115,12 @@
 | `.utodo-root` | 占满父容器、纵向滚动、顶部让出 `--dsh-frame-top-clearance` |
 | `.utodo-shell` | `max-width: 760px`，水平居中，负责全部内边距 |
 | `.utodo-head` | flex-wrap 横排；底部 1px 线；下边距 `s5`；标题块在左，`.utodo-head-tools` `margin-left: auto` |
-| `.utodo-panel` | 卡片底：`--ut-tint` 或 `--ut-surface`（跟随主题）、`--ut-r-lg`、1px `--ut-line` |
+| `.utodo-panel` | 卡片：1px `--ut-line`、`--ut-r-lg`、内边距 `s3`，底色用 `--ut-tint` |
 
 ### 4.2 分段控件（tabs / views / seg 共用一套配方）
 
 外壳：`--ut-tint` 底 + 1px `--ut-line` + `--ut-r-md` + 2px 内边距。
-条目：高 28、`--ut-r-sm`、`opacity: var(--ut-o-2)`、hover 加 `--ut-tint`；
+条目：`.utodo-tab` / `.utodo-view` 高 28，`.utodo-seg-btn` 高 24（`.utodo-pin-range` 里 22）、`--ut-r-sm`、`opacity: var(--ut-o-2)`、hover 加 `--ut-tint`；
 `.is-active` = `--ut-tint-strong` 底 + `inset 0 0 0 1px var(--ut-line-strong)` + 不透明。
 计数徽标：`.utodo-tab-count` / `.utodo-view-count`，`--ut-fs-xs`、`--ut-o-3`。
 
@@ -132,7 +132,7 @@
 | `.utodo-ghost` | 30 | 透明底 + 1px `--ut-line`；`.is-on` = `--ut-accent-ink` 文字 + `--ut-accent-soft` 底 + `--ut-accent-line` 边 | 次级动作（导入会话、完成） |
 | `.utodo-icon-btn` | 28×28 | 透明、`--ut-r-xs`、图标 `--ut-o-2`；hover `--ut-tint-strong` 且不透明；`.is-danger` hover 文字转 `--ut-danger` | 行内图标动作（星标、删除） |
 | `.utodo-quick-btn` | 26 | 胶囊、1px `--ut-line`；`.is-star` = accent 描边 + `--ut-accent-ink` | 快捷参数（今天/明天/重要/测试推送） |
-| `.utodo-confirm` | 30 | accent 实心小按钮 | 行内编辑的「保存」 |
+| `.utodo-confirm` | 26 | accent 实心小按钮 | 行内编辑的「保存」 |
 
 同一个视图里 `.utodo-add` 最多出现一次；两个并列主动作就说明信息架构有问题。
 
@@ -145,9 +145,9 @@
 
 ### 4.5 列表行
 
-`.utodo-row`：flex、gap `s2`、上下 6px、左右 8px、`--ut-r-md`、hover `--ut-tint`。
+`.utodo-row`：flex、gap `s3`、内边距 `s2`/`s3`、`--ut-r-md`，描边默认透明；hover 时加 `--ut-tint` 底 + `--ut-line` 边（不位移）。
 - `.utodo-check`：18×18 圆环，`.is-done` 时 accent 填充 + 勾；
-- `.utodo-row-title` 14px，`.is-done` 时加删除线并降到 `--ut-o-4`；
+- `.utodo-row-title` 14px/1.55，`.is-done` 时加删除线并降到 `--ut-o-4`；
 - `.utodo-meta` 12px `--ut-o-3`，用 `·` 分隔；
 - `.utodo-row-actions` 默认 `opacity: 0`，行 hover / focus-within 才出现（键盘可达）。
 - 多选：`.is-selectable` 显示 `.utodo-selectbox`（18×18 方框）、隐藏 `.utodo-row-actions`、`.is-selected` 用 `--ut-accent-soft` 底 + accent 边。
@@ -160,17 +160,17 @@
 ### 4.7 分组与面板
 
 - `.utodo-group-head`：标签 `--ut-fs-xs`、大写间距 `letter-spacing: .08em`、`.is-today` 用 `--ut-accent-ink`、`.is-overdue` 用 `--ut-danger`；计数 `--ut-o-3`。
-- `.utodo-pin`（重要 / 即将到期容器）：`--ut-tint` 底、`--ut-r-lg`、1px 线、内边距 `s3`；`.is-important` 左边 2px accent 竖条。
+- `.utodo-pin`（重要 / 即将到期容器）：无底，只用左侧 2px `--ut-line-strong` 竖条 + 左内边距 `s3` 收拢一组行；加上 `.utodo-panel` 后才变成卡片（1px 线 + `--ut-r-lg` + `s3` 内边距），`.is-important` 的竖条换成 accent。
 
 ### 4.8 想法卡
 
 `.utodo-ideas`：`grid-template-columns: repeat(auto-fill, minmax(240px, 1fr))`、gap `s3`。
-`.utodo-idea`：`--ut-r-lg`、1px `--ut-line`、内边距 `s3`、hover 抬升到 `--ut-tint`；
-`.utodo-idea-text` 14px/1.55；`.utodo-idea-foot` 放标签、时间、删除，`--ut-spacer` 撑开。
+`.utodo-idea`：`--ut-r-lg`、1px `--ut-line`、`--ut-tint` 底、内边距 `s3`，hover 时边线转 `--ut-line-strong`、底转 `--ut-tint-strong`；
+`.utodo-idea-text` 14px/1.65；`.utodo-idea-foot` 放标签、时间、删除，`--ut-spacer` 撑开。
 
 ### 4.9 标签
 
-`.utodo-chip`：胶囊、`--ut-fs-xs`、颜色取自 `--ut-tag-bg/fg/line`；`.utodo-chip-x` 是 14×14 的移除按钮，hover 时底色加深。
+`.utodo-chip`：胶囊、`--ut-fs-xs`、颜色取自 `--ut-tag-bg/fg/line`；`.utodo-chip-x` 是文字型的 × 按钮（`--ut-fs-sm`，`--ut-o-3`，hover 不透明）；`.utodo-chip-add` 是 20px 高的虚线胶囊。
 `.utodo-filter`：与 chip 同形，`.is-active` 时实底并加 `inset` 边框。
 
 ### 4.10 设置卡
